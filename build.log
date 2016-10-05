@@ -1,0 +1,295 @@
+
+C:\repos\FS-EntitySystem\libraries>"C:\tools\apache-maven-3.3.9\bin\\mvn.cmd" clean package 
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.forgottenspace.es:EntitySystem:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:cobertura-maven-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 98, column 12
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 83, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.forgottenspace.es:EntityComponents:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:cobertura-maven-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 98, column 12
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 83, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.forgottenspace.es:Parsers:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:cobertura-maven-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 98, column 12
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 83, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.forgottenspace.es:EntityControls:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:cobertura-maven-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 98, column 12
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 83, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.forgottenspace.es:AISystem:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:cobertura-maven-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 98, column 12
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 83, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.forgottenspace.es:AIComponents:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:cobertura-maven-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 98, column 12
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ com.forgottenspace.es:libraries:1.0-SNAPSHOT, C:\repos\FS-EntitySystem\libraries\pom.xml, line 83, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.forgottenspace.es:libraries:pom:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:cobertura-maven-plugin is missing. @ line 98, column 12
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ line 83, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] libraries
+[INFO] EntitySystem
+[INFO] AISystem
+[INFO] Parsers
+[INFO] EntityComponents
+[INFO] EntityControls
+[INFO] AIComponents
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building libraries 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: http://repository.product.gx.local/releases/org/apache/maven/plugins/maven-javadoc-plugin/maven-metadata.xml
+Downloading: http://repository.product.gx.local/maven2/org/apache/maven/plugins/maven-javadoc-plugin/maven-metadata.xml
+[WARNING] Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+Downloading: http://repository.product.gx.local/releases/org/codehaus/mojo/cobertura-maven-plugin/maven-metadata.xml
+Downloading: http://repository.product.gx.local/maven2/org/codehaus/mojo/cobertura-maven-plugin/maven-metadata.xml
+[WARNING] Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ libraries ---
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building EntitySystem 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ EntitySystem ---
+[INFO] Deleting C:\repos\FS-EntitySystem\libraries\EntitySystem\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ EntitySystem ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\EntitySystem\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ EntitySystem ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 11 source files to C:\repos\FS-EntitySystem\libraries\EntitySystem\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ EntitySystem ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\EntitySystem\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ EntitySystem ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 8 source files to C:\repos\FS-EntitySystem\libraries\EntitySystem\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ EntitySystem ---
+[INFO] Surefire report directory: C:\repos\FS-EntitySystem\libraries\EntitySystem\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.forgottenspace.es.componentstorages.InMemoryComponentStorageTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.068 sec
+Running com.forgottenspace.es.ComponentStoragesTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Running com.forgottenspace.es.ComponentTypeCriteriaTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec
+Running com.forgottenspace.es.EntityResultSetTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 sec
+Running com.forgottenspace.es.EntityTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+
+Results :
+
+Tests run: 42, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ EntitySystem ---
+[INFO] Building jar: C:\repos\FS-EntitySystem\libraries\EntitySystem\target\EntitySystem-1.0-SNAPSHOT.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building AISystem 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ AISystem ---
+[INFO] Deleting C:\repos\FS-EntitySystem\libraries\AISystem\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ AISystem ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\AISystem\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ AISystem ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to C:\repos\FS-EntitySystem\libraries\AISystem\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ AISystem ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\AISystem\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ AISystem ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ AISystem ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ AISystem ---
+[INFO] Building jar: C:\repos\FS-EntitySystem\libraries\AISystem\target\AISystem-1.0-SNAPSHOT.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Parsers 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ Parsers ---
+[INFO] Deleting C:\repos\FS-EntitySystem\libraries\Parsers\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ Parsers ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ Parsers ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 22 source files to C:\repos\FS-EntitySystem\libraries\Parsers\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ Parsers ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\Parsers\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ Parsers ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ Parsers ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ Parsers ---
+[INFO] Building jar: C:\repos\FS-EntitySystem\libraries\Parsers\target\Parsers-1.0-SNAPSHOT.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building EntityComponents 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ EntityComponents ---
+[INFO] Deleting C:\repos\FS-EntitySystem\libraries\EntityComponents\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ EntityComponents ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\EntityComponents\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ EntityComponents ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 15 source files to C:\repos\FS-EntitySystem\libraries\EntityComponents\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ EntityComponents ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\EntityComponents\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ EntityComponents ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ EntityComponents ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ EntityComponents ---
+[INFO] Building jar: C:\repos\FS-EntitySystem\libraries\EntityComponents\target\EntityComponents-1.0-SNAPSHOT.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building EntityControls 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ EntityControls ---
+[INFO] Deleting C:\repos\FS-EntitySystem\libraries\EntityControls\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ EntityControls ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\EntityControls\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ EntityControls ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 11 source files to C:\repos\FS-EntitySystem\libraries\EntityControls\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ EntityControls ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\EntityControls\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ EntityControls ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ EntityControls ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ EntityControls ---
+[INFO] Building jar: C:\repos\FS-EntitySystem\libraries\EntityControls\target\EntityControls-1.0-SNAPSHOT.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building AIComponents 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins:maven-javadoc-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of gx.maven2.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.maven2.plugin (http://repository.product.gx.local/maven2): repository.product.gx.local
+[WARNING] Failure to transfer org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from http://repository.product.gx.local/releases was cached in the local repository, resolution will not be reattempted until the update interval of gx.releases.plugin has elapsed or updates are forced. Original error: Could not transfer metadata org.codehaus.mojo:cobertura-maven-plugin/maven-metadata.xml from/to gx.releases.plugin (http://repository.product.gx.local/releases): repository.product.gx.local
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ AIComponents ---
+[INFO] Deleting C:\repos\FS-EntitySystem\libraries\AIComponents\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ AIComponents ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\AIComponents\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ AIComponents ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 7 source files to C:\repos\FS-EntitySystem\libraries\AIComponents\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ AIComponents ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\repos\FS-EntitySystem\libraries\AIComponents\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ AIComponents ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ AIComponents ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ AIComponents ---
+[INFO] Building jar: C:\repos\FS-EntitySystem\libraries\AIComponents\target\AIComponents-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] libraries .......................................... SUCCESS [  0.647 s]
+[INFO] EntitySystem ....................................... SUCCESS [  2.496 s]
+[INFO] AISystem ........................................... SUCCESS [  0.168 s]
+[INFO] Parsers ............................................ SUCCESS [  0.418 s]
+[INFO] EntityComponents ................................... SUCCESS [  0.207 s]
+[INFO] EntityControls ..................................... SUCCESS [  0.344 s]
+[INFO] AIComponents ....................................... SUCCESS [  0.198 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.591 s
+[INFO] Finished at: 2016-10-05T17:08:21+02:00
+[INFO] Final Memory: 25M/303M
+[INFO] ------------------------------------------------------------------------
