@@ -1,26 +1,51 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.forgottenspace.es</groupId>
-    <artifactId>libraries</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  
-  <artifactId>EntityComponents</artifactId>
-  <name>EntityComponents</name>
-  
-  <dependencies>
-    <dependency>
-      <groupId>com.forgottenspace.es</groupId>
-      <artifactId>EntitySystem</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.forgottenspace.es</groupId>
-      <artifactId>Parsers</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-  </dependencies>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.forgottenspace.es</groupId>
+		<artifactId>libraries</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>EntityComponents</artifactId>
+	<name>EntityComponents</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.forgottenspace.es</groupId>
+			<artifactId>EntitySystem</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.forgottenspace.es</groupId>
+			<artifactId>Parsers</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>com.forgottenspace.parsers.entitytemplate.annotation.TemplateProcessor</processor>
+							</processors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

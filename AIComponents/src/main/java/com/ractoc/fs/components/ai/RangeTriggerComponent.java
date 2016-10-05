@@ -1,23 +1,27 @@
 package com.ractoc.fs.components.ai;
 
-import com.ractoc.fs.ai.AiComponent;
-import com.ractoc.fs.components.es.ControlledComponent;
-import com.ractoc.fs.components.es.LocationComponent;
-import com.ractoc.fs.es.ComponentTypeCriteria;
-import com.ractoc.fs.es.Entities;
-import com.ractoc.fs.es.Entity;
-import com.ractoc.fs.es.EntityResultSet;
-import com.ractoc.fs.parsers.ai.AiComponentExit;
-import com.ractoc.fs.parsers.ai.AiComponentProperty;
+import static com.ractoc.fs.components.ai.AiConstants.IN_RANGE_EXIT;
+import static com.ractoc.fs.components.ai.AiConstants.APPROACH_RANGE_PROPERTY;
+
 import java.util.List;
+
+import com.forgottenspace.ai.AiComponent;
+import com.forgottenspace.es.ComponentTypeCriteria;
+import com.forgottenspace.es.Entities;
+import com.forgottenspace.es.Entity;
+import com.forgottenspace.es.EntityResultSet;
+import com.forgottenspace.es.components.ControlledComponent;
+import com.forgottenspace.es.components.LocationComponent;
+import com.forgottenspace.parsers.ai.AiComponentExit;
+import com.forgottenspace.parsers.ai.AiComponentProperty;
 
 public class RangeTriggerComponent extends AiComponent {
 
-    private EntityResultSet controlledResultSet;
+	private EntityResultSet controlledResultSet;
     private Entity controlledEntity;
-    @AiComponentProperty(name = "range", displayName = "Range", type = Float.class, shortDescription = "Range to execute the trigger and proceed to the next Ai Component")
+    @AiComponentProperty(name = APPROACH_RANGE_PROPERTY, displayName = "Range", type = Float.class, shortDescription = "Range to execute the trigger and proceed to the next Ai Component")
     private Float range;
-    @AiComponentExit(name = "inRange", displayName = "In Range", type = String.class, shortDescription = "The player is in range.")
+    @AiComponentExit(name = IN_RANGE_EXIT, displayName = "In Range", type = String.class, shortDescription = "The player is in range.")
     private String inRange;
 
     public RangeTriggerComponent(String id) {
@@ -25,30 +29,30 @@ public class RangeTriggerComponent extends AiComponent {
         queryControlledResultSet();
     }
 
-    private void queryControlledResultSet() {
+	private void queryControlledResultSet() {
         ComponentTypeCriteria criteria = new ComponentTypeCriteria(LocationComponent.class, ControlledComponent.class);
         controlledResultSet = Entities.getInstance().queryEntities(criteria);
     }
 
     @Override
     public String[] getMandatoryProperties() {
-        return new String[]{"range"};
+        return new String[]{APPROACH_RANGE_PROPERTY};
     }
 
     @Override
     public String[] getMandatoryExits() {
-        return new String[]{"inRange"};
+        return new String[]{IN_RANGE_EXIT};
     }
 
     @Override
     public void initialiseProperties() {
-        range = Float.valueOf((String) getProp("range"));
-        inRange = (String) exits.get("inRange");
+        range = Float.valueOf((String) getProp(APPROACH_RANGE_PROPERTY));
+        inRange = (String) exits.get(IN_RANGE_EXIT);
     }
 
     @Override
     public void updateProperties() {
-        props.put("range", range.toString());
+        props.put(APPROACH_RANGE_PROPERTY, range.toString());
     }
 
     @Override
@@ -72,13 +76,13 @@ public class RangeTriggerComponent extends AiComponent {
     }
 
     private void updateRemovedEntities(List<Entity> removedEntities) {
-        if (removedEntities.size() > 0) {
+        if (!removedEntities.isEmpty()) {
             controlledEntity = null;
         }
     }
 
     private void updateAddedEntities(List<Entity> addedEntities) {
-        if (addedEntities.size() > 0) {
+        if (!addedEntities.isEmpty()) {
             controlledEntity = addedEntities.get(0);
         }
     }

@@ -1,23 +1,33 @@
 package com.ractoc.fs.components.ai;
 
-import com.jme3.math.Vector3f;
-import com.ractoc.fs.ai.AiComponent;
-import com.ractoc.fs.components.es.*;
-import com.ractoc.fs.es.ComponentTypeCriteria;
-import com.ractoc.fs.es.Entities;
-import com.ractoc.fs.es.Entity;
-import com.ractoc.fs.es.EntityResultSet;
-import com.ractoc.fs.parsers.ai.AiComponentExit;
-import com.ractoc.fs.parsers.ai.AiComponentProperty;
+import static com.ractoc.fs.components.ai.AiConstants.DESTROYED_EXIT;
+import static com.ractoc.fs.components.ai.AiConstants.APPROACH_RANGE_PROPERTY;
+
 import java.util.List;
+
+import com.forgottenspace.ai.AiComponent;
+import com.forgottenspace.es.ComponentTypeCriteria;
+import com.forgottenspace.es.Entities;
+import com.forgottenspace.es.Entity;
+import com.forgottenspace.es.EntityResultSet;
+import com.forgottenspace.es.components.CanMoveComponent;
+import com.forgottenspace.es.components.ControlledComponent;
+import com.forgottenspace.es.components.LocationComponent;
+import com.forgottenspace.es.components.MovementComponent;
+import com.forgottenspace.es.components.SpeedComponent;
+import com.forgottenspace.parsers.ai.AiComponentExit;
+import com.forgottenspace.parsers.ai.AiComponentProperty;
+import com.jme3.math.Vector3f;
 
 public class ApproachComponent extends AiComponent {
 
-    @AiComponentProperty(name = "range", displayName = "Range", type = Float.class, shortDescription = "Minimum range between the AI and the player.")
+    @AiComponentProperty(name = APPROACH_RANGE_PROPERTY, displayName = "Range", type = Float.class, shortDescription = "Minimum range between the AI and the player.")
     private Float range;
-    @AiComponentExit(name = "destroyed", displayName = "Destroyed", type = String.class, shortDescription = "The ship is destroyed.")
+    @AiComponentExit(name = DESTROYED_EXIT, displayName = "Destroyed", type = String.class, shortDescription = "The ship is destroyed.")
     private String destroyed;
-    private EntityResultSet controlledResultSet;
+    
+    private Entities entities = Entities.getInstance();
+	private EntityResultSet controlledResultSet;
     private Entity controlledEntity;
     private Entity shipEntity;
     private MovementComponent movementComponent;
@@ -27,41 +37,41 @@ public class ApproachComponent extends AiComponent {
         queryControlledResultSet();
     }
 
-    private void queryControlledResultSet() {
+	private void queryControlledResultSet() {
         ComponentTypeCriteria criteria = new ComponentTypeCriteria(LocationComponent.class, ControlledComponent.class);
-        controlledResultSet = Entities.getInstance().queryEntities(criteria);
+        controlledResultSet = entities.queryEntities(criteria);
     }
 
     @Override
     public String[] getMandatoryProperties() {
-        return new String[]{"range"};
+        return new String[]{APPROACH_RANGE_PROPERTY};
     }
 
     @Override
     public String[] getMandatoryExits() {
-        return new String[]{"destroyed"};
+        return new String[]{DESTROYED_EXIT};
     }
 
     @Override
     public void initialiseProperties() {
-        range = Float.valueOf((String) getProp("range"));
-        destroyed = (String) exits.get("destroyed");
+        range = Float.valueOf((String) getProp(APPROACH_RANGE_PROPERTY));
+        destroyed = (String) exits.get(DESTROYED_EXIT);
     }
 
     @Override
     public void updateProperties() {
-        props.put("range", range.toString());
+        props.put(APPROACH_RANGE_PROPERTY, range.toString());
     }
 
     @Override
     public void update(float tpf) {
         super.update(tpf);
         determineControlledEntity();
-        shipEntity = Entities.getInstance().getEntityById((Long) getProp("shipEntity"));
+        shipEntity = entities.getEntityById((Long) getProp("shipEntity"));
         if (shipEntity != null) {
-            LocationComponent shipLocationComponent = Entities.getInstance().loadComponentForEntity(shipEntity, LocationComponent.class);
+            LocationComponent shipLocationComponent = entities.loadComponentForEntity(shipEntity, LocationComponent.class);
             if (controlledEntity != null && shipLocationComponent != null) {
-                LocationComponent controlledLocationComponent = Entities.getInstance().loadComponentForEntity(controlledEntity, LocationComponent.class);
+                LocationComponent controlledLocationComponent = entities.loadComponentForEntity(controlledEntity, LocationComponent.class);
                 turnTowardsControlledEntity(shipLocationComponent, controlledLocationComponent);
                 moveTowardsControlledEntity(shipLocationComponent, controlledLocationComponent);
             }
@@ -85,19 +95,19 @@ public class ApproachComponent extends AiComponent {
     }
 
     private void updateRemovedEntities(List<Entity> removedEntities) {
-        if (removedEntities.size() > 0) {
+        if (!removedEntities.isEmpty()) {
             controlledEntity = null;
         }
     }
 
     private void updateAddedEntities(List<Entity> addedEntities) {
-        if (addedEntities.size() > 0) {
+        if (!addedEntities.isEmpty()) {
             controlledEntity = addedEntities.get(0);
         }
     }
 
     private void rotateLeft() {
-        Entities.getInstance().changeComponentsForEntity(shipEntity, new MovementComponent(
+        entities.changeComponentsForEntity(shipEntity, new MovementComponent(
                 movementComponent.isMoveForward(),
                 movementComponent.isMoveBackwards(),
                 movementComponent.isStrafeLeft(),
@@ -107,7 +117,7 @@ public class ApproachComponent extends AiComponent {
     }
 
     private void rotateRight() {
-        Entities.getInstance().changeComponentsForEntity(shipEntity, new MovementComponent(
+        entities.changeComponentsForEntity(shipEntity, new MovementComponent(
                 movementComponent.isMoveForward(),
                 movementComponent.isMoveBackwards(),
                 movementComponent.isStrafeLeft(),
@@ -117,7 +127,7 @@ public class ApproachComponent extends AiComponent {
     }
 
     private void moveForward() {
-        Entities.getInstance().changeComponentsForEntity(shipEntity, new MovementComponent(
+        entities.changeComponentsForEntity(shipEntity, new MovementComponent(
                 true,
                 false,
                 movementComponent.isStrafeLeft(),
@@ -127,7 +137,7 @@ public class ApproachComponent extends AiComponent {
     }
 
     private void stopMoving() {
-        Entities.getInstance().changeComponentsForEntity(shipEntity, new MovementComponent(
+        entities.changeComponentsForEntity(shipEntity, new MovementComponent(
                 false,
                 false,
                 movementComponent.isStrafeLeft(),
@@ -136,17 +146,17 @@ public class ApproachComponent extends AiComponent {
                 movementComponent.isRotateRight()));
     }
 
-    private boolean entityHasMovementComponent() {
+	private boolean entityHasMovementComponent() {
         return shipEntity.matches(new ComponentTypeCriteria(MovementComponent.class));
     }
 
-    private boolean entityHasSpeedComponent() {
+	private boolean entityHasSpeedComponent() {
         return shipEntity.matches(new ComponentTypeCriteria(SpeedComponent.class));
     }
 
     private void loadMovementComponent() {
         if (entityHasMovementComponent()) {
-            movementComponent = Entities.getInstance().loadComponentForEntity(shipEntity, MovementComponent.class);
+            movementComponent = entities.loadComponentForEntity(shipEntity, MovementComponent.class);
         } else {
             setDefaultComponents();
         }
@@ -154,12 +164,12 @@ public class ApproachComponent extends AiComponent {
 
     private void setDefaultComponents() {
         movementComponent = new MovementComponent(false, false, false, false, false, false);
-        Entities.getInstance().addComponentsToEntity(shipEntity, movementComponent);
-        Entities.getInstance().addComponentsToEntity(shipEntity, new SpeedComponent(0F, 0F, 0F));
+        entities.addComponentsToEntity(shipEntity, movementComponent);
+        entities.addComponentsToEntity(shipEntity, new SpeedComponent(0F, 0F, 0F));
     }
 
     private void stopRotating() {
-        Entities.getInstance().changeComponentsForEntity(shipEntity, new MovementComponent(
+        entities.changeComponentsForEntity(shipEntity, new MovementComponent(
                 movementComponent.isMoveForward(),
                 movementComponent.isMoveBackwards(),
                 movementComponent.isStrafeLeft(),
@@ -193,8 +203,8 @@ public class ApproachComponent extends AiComponent {
         float distance = shipLocationComponent.getTranslation().distance(controlledLocationComponent.getTranslation());
         float distanceTraveled = 0f;
         if (entityHasSpeedComponent()) {
-            SpeedComponent controlledSpeedComponent = Entities.getInstance().loadComponentForEntity(shipEntity, SpeedComponent.class);
-            CanMoveComponent controlledCanMoveComponent = Entities.getInstance().loadComponentForEntity(shipEntity, CanMoveComponent.class);
+            SpeedComponent controlledSpeedComponent = entities.loadComponentForEntity(shipEntity, SpeedComponent.class);
+            CanMoveComponent controlledCanMoveComponent = entities.loadComponentForEntity(shipEntity, CanMoveComponent.class);
             float startingVelocity = controlledSpeedComponent.getMoveSpeed();
             float deceleration = controlledCanMoveComponent.getBrake();
             float averageVelocity = startingVelocity / 2;

@@ -1,25 +1,26 @@
 package com.ractoc.fs.components.ai;
 
-import com.jme3.asset.AssetManager;
-import com.ractoc.fs.ai.AiComponent;
-import com.ractoc.fs.ai.AiScript;
-import com.ractoc.fs.components.es.ControlledComponent;
-import com.ractoc.fs.components.es.LocationComponent;
-import com.ractoc.fs.components.es.ShootMainComponent;
-import com.ractoc.fs.es.ComponentTypeCriteria;
-import com.ractoc.fs.es.Entities;
-import com.ractoc.fs.es.Entity;
-import com.ractoc.fs.es.EntityResultSet;
-import com.ractoc.fs.parsers.ai.AiComponentExit;
-import com.ractoc.fs.parsers.ai.AiComponentProperty;
+import static com.ractoc.fs.components.ai.AiConstants.BOOM_EXIT;
+import static com.ractoc.fs.components.ai.AiConstants.SHIP_ENTITY_PROPERTY;
+
 import java.util.List;
+
+import com.forgottenspace.ai.AiComponent;
+import com.forgottenspace.es.ComponentTypeCriteria;
+import com.forgottenspace.es.Entities;
+import com.forgottenspace.es.Entity;
+import com.forgottenspace.es.EntityResultSet;
+import com.forgottenspace.es.components.ControlledComponent;
+import com.forgottenspace.es.components.LocationComponent;
+import com.forgottenspace.es.components.ShootMainComponent;
+import com.forgottenspace.parsers.ai.AiComponentExit;
 
 public class ShootComponent extends AiComponent {
 
-    private Entity controlledEntity;
-    private Entity shipEntity;
+    private static final Entities entities = Entities.getInstance();
+	private Entity controlledEntity;
     private EntityResultSet controlledResultSet;
-    @AiComponentExit(name = "boom", displayName = "Boom", type = String.class, shortDescription = "The player has been destroyed.")
+    @AiComponentExit(name = BOOM_EXIT, displayName = "Boom", type = String.class, shortDescription = "The player has been destroyed.")
     private String boom;
 
     public ShootComponent(String id) {
@@ -27,9 +28,9 @@ public class ShootComponent extends AiComponent {
         queryControlledResultSet();
     }
 
-    private void queryControlledResultSet() {
+	private void queryControlledResultSet() {
         ComponentTypeCriteria criteria = new ComponentTypeCriteria(LocationComponent.class, ControlledComponent.class);
-        controlledResultSet = Entities.getInstance().queryEntities(criteria);
+        controlledResultSet = entities.queryEntities(criteria);
     }
 
     @Override
@@ -39,30 +40,31 @@ public class ShootComponent extends AiComponent {
 
     @Override
     public String[] getMandatoryExits() {
-        return new String[]{"boom"};
+        return new String[]{BOOM_EXIT};
     }
 
     @Override
     public void initialiseProperties() {
-        boom = (String) exits.get("boom");
+        boom = (String) exits.get(BOOM_EXIT);
     }
 
     @Override
     public void updateProperties() {
+    	// properties can not be updated
     }
 
     @Override
-    public void update(float tpf) {
+	public void update(float tpf) {
         determineControlledEntity();
-        shipEntity = Entities.getInstance().getEntityById((Long) getProp("shipEntity"));
+        Entity shipEntity = entities.getEntityById((Long) getProp(SHIP_ENTITY_PROPERTY));
         if (shipEntity != null) {
-            LocationComponent shipLocationComponent = Entities.getInstance().loadComponentForEntity(shipEntity, LocationComponent.class);
+            LocationComponent shipLocationComponent = entities.loadComponentForEntity(shipEntity, LocationComponent.class);
             if (controlledEntity != null && shipLocationComponent != null) {
                 if (!shipEntity.matches(new ComponentTypeCriteria(ShootMainComponent.class))) {
-                    Entities.getInstance().addComponentsToEntity(shipEntity, new ShootMainComponent(0f));
+                    entities.addComponentsToEntity(shipEntity, new ShootMainComponent(0f));
                 }
             } else {
-                Entities.getInstance().removeComponentsFromEntity(shipEntity, new ShootMainComponent(0f));
+                entities.removeComponentsFromEntity(shipEntity, new ShootMainComponent(0f));
             }
         } else {
             aiScript.setCurrentComponent(boom);
@@ -77,13 +79,13 @@ public class ShootComponent extends AiComponent {
     }
 
     private void updateRemovedEntities(List<Entity> removedEntities) {
-        if (removedEntities.size() > 0) {
+        if (!removedEntities.isEmpty()) {
             controlledEntity = null;
         }
     }
 
     private void updateAddedEntities(List<Entity> addedEntities) {
-        if (addedEntities.size() > 0) {
+        if (!addedEntities.isEmpty()) {
             controlledEntity = addedEntities.get(0);
         }
     }
