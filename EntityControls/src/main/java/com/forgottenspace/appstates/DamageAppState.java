@@ -1,5 +1,8 @@
 package com.forgottenspace.appstates;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.forgottenspace.es.ComponentTypeCriteria;
 import com.forgottenspace.es.Entities;
 import com.forgottenspace.es.Entity;
@@ -8,10 +11,8 @@ import com.forgottenspace.es.components.DamageComponent;
 import com.forgottenspace.es.components.LocationComponent;
 import com.forgottenspace.es.components.OriginComponent;
 import com.forgottenspace.es.components.StructureComponent;
+import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DamageAppState extends AbstractEntityControl {
 
@@ -22,6 +23,12 @@ public class DamageAppState extends AbstractEntityControl {
     @SuppressWarnings("unchecked")
 	public DamageAppState() {
         resultSet = queryEntityResultSet(DamageComponent.class, LocationComponent.class);
+    }
+
+    @Override
+    public void initialize(AppStateManager stateManager, Application app) {
+        super.initialize(stateManager, app);
+        appStateManager = stateManager;
     }
 
     @Override

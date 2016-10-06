@@ -11,7 +11,7 @@ import javax.tools.JavaFileObject;
 import com.forgottenspace.parsers.ParserException;
 
 @SupportedAnnotationTypes({"com.forgottenspace.parsers.entitytemplate.annotation.Template"})
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class TemplateProcessor extends AbstractProcessor {
 
     private Element componentElement;

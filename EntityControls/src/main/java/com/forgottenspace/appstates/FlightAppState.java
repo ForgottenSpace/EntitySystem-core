@@ -1,24 +1,53 @@
 package com.forgottenspace.appstates;
 
+import com.forgottenspace.es.ComponentTypeCriteria;
 import com.forgottenspace.es.Entities;
 import com.forgottenspace.es.Entity;
 import com.forgottenspace.es.EntityResultSet;
+import com.forgottenspace.es.components.BoundedEntityComponent;
 import com.forgottenspace.es.components.CanMoveComponent;
 import com.forgottenspace.es.components.LocationComponent;
 import com.forgottenspace.es.components.MovementComponent;
 import com.forgottenspace.es.components.SpeedComponent;
+import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
 public class FlightAppState extends AbstractEntityControl {
 
+	private SimpleApplication application;
 	private EntityResultSet resultSet;
-	private Entities entities = Entities.getInstance();
+	private boolean bounded;
 
-	@SuppressWarnings("unchecked")
 	public FlightAppState() {
-		resultSet = queryEntityResultSet(CanMoveComponent.class, SpeedComponent.class, MovementComponent.class,
-				LocationComponent.class);
+		queryEntityResultSet();
+	}
+
+	private void queryEntityResultSet() {
+		Entities entities = Entities.getInstance();
+		ComponentTypeCriteria criteria = new ComponentTypeCriteria(CanMoveComponent.class, SpeedComponent.class,
+				MovementComponent.class, LocationComponent.class);
+		resultSet = entities.queryEntities(criteria);
+	}
+
+	@Override
+	public void initialize(AppStateManager stateManager, Application app) {
+		super.initialize(stateManager, app);
+		application = (SimpleApplication) app;
+	}
+
+	@Override
+	public void stateAttached(AppStateManager stateManager) {
+		super.stateAttached(stateManager);
+		setEnabled(true);
+	}
+
+	@Override
+	public void stateDetached(AppStateManager stateManager) {
+		super.stateDetached(stateManager);
+		setEnabled(false);
 	}
 
 	@Override
@@ -33,67 +62,52 @@ public class FlightAppState extends AbstractEntityControl {
 	}
 
 	private void updateMovingEntity(Entity movingEntity, float tpf) {
-		MovementComponent mc = entities.loadComponentForEntity(movingEntity, MovementComponent.class);
-		CanMoveComponent cmc = entities.loadComponentForEntity(movingEntity, CanMoveComponent.class);
-		SpeedComponent sc = entities.loadComponentForEntity(movingEntity, SpeedComponent.class);
+		MovementComponent mc = Entities.getInstance().loadComponentForEntity(movingEntity, MovementComponent.class);
+		CanMoveComponent cmc = Entities.getInstance().loadComponentForEntity(movingEntity, CanMoveComponent.class);
+		LocationComponent lc = Entities.getInstance().loadComponentForEntity(movingEntity, LocationComponent.class);
+		SpeedComponent sc = Entities.getInstance().loadComponentForEntity(movingEntity, SpeedComponent.class);
 
 		sc = setSpeeds(sc, mc, cmc);
-
-		if (isEntityStationary(sc)) {
-			entities.removeComponentsFromEntity(movingEntity, sc, mc);
-		} else {
-			moveEntity(movingEntity, tpf, sc);
-		}
-	}
-
-	private void moveEntity(Entity movingEntity, float tpf, SpeedComponent sc) {
-		LocationComponent lc = entities.loadComponentForEntity(movingEntity, LocationComponent.class);
 
 		Vector3f location = lc.getTranslation();
 		Quaternion rotation = lc.getRotation();
 
-		location = moveEntity(sc.getMoveSpeed() * tpf, location, rotation);
-		location = strafeEntity(sc.getStrafeSpeed() * tpf, location, rotation);
-		rotateEntity(sc.getRotationSpeed() * tpf, rotation);
-		// TODO: figure out if this check is actually needed. In theory, it
-		// should be enough to just alter the location. The SceneAppState should
-		// convert that into a screen location.
-		if (onScreen(location)) {
-			entities.changeComponentsForEntity(movingEntity, sc, createLocationComponent(location, rotation, lc));
+		if (sc.getMoveSpeed() == 0 && sc.getStrafeSpeed() == 0 && sc.getRotationSpeed() == 0) {
+			Entities.getInstance().removeComponentsFromEntity(movingEntity, sc, mc);
 		} else {
-			entities.changeComponentsForEntity(movingEntity, sc,
-					createLocationComponent(lc.getTranslation(), rotation, lc));
+			location = moveEntity(sc.getMoveSpeed() * tpf, location, rotation);
+			location = strafeEntity(sc.getStrafeSpeed() * tpf, location, rotation);
+			rotateEntity(sc.getRotationSpeed() * tpf, rotation);
+			if (!isBounded(movingEntity) || onScreen(location)) {
+				Entities.getInstance().changeComponentsForEntity(movingEntity, sc,
+						createLocationComponent(location, rotation, lc));
+			} else {
+				Entities.getInstance().changeComponentsForEntity(movingEntity, sc,
+						createLocationComponent(lc.getTranslation(), rotation, lc));
+			}
 		}
 	}
 
-	private boolean isEntityStationary(SpeedComponent sc) {
-		return sc.getMoveSpeed() == 0 && sc.getStrafeSpeed() == 0 && sc.getRotationSpeed() == 0;
-	}
-
 	private Vector3f moveEntity(float movementSpeed, Vector3f location, Quaternion rotation) {
-		if (hasSpeed(movementSpeed)) {
-			return location.add(rotation.mult(Vector3f.UNIT_Z).normalizeLocal().multLocal(movementSpeed));
+		if (movementSpeed != 0) {
+			location = location.add(rotation.mult(Vector3f.UNIT_Z).normalizeLocal().multLocal(movementSpeed));
 		}
 		return location;
 	}
 
 	private Vector3f strafeEntity(float strafeSpeed, Vector3f location, Quaternion rotation) {
-		if (hasSpeed(strafeSpeed)) {
-			return location.add(rotation.mult(Vector3f.UNIT_X).normalizeLocal().multLocal(strafeSpeed));
+		if (strafeSpeed != 0) {
+			location = location.add(rotation.mult(Vector3f.UNIT_X).normalizeLocal().multLocal(strafeSpeed));
 		}
 		return location;
 	}
 
 	private void rotateEntity(float rotateSpeed, Quaternion rotation) {
-		if (hasSpeed(rotateSpeed)) {
+		if (rotateSpeed != 0) {
 			Quaternion rot = new Quaternion();
 			rot.fromAngles(0f, rotateSpeed, 0f);
 			rotation.multLocal(rot);
 		}
-	}
-
-	private boolean hasSpeed(float movementSpeed) {
-		return Float.compare(movementSpeed, 0.0f) != 0;
 	}
 
 	private LocationComponent createLocationComponent(Vector3f location, Quaternion rotation, LocationComponent lc) {
@@ -122,35 +136,35 @@ public class FlightAppState extends AbstractEntityControl {
 	}
 
 	private float moveForward(float movementSpeed, CanMoveComponent cmc) {
-		float speed = movementSpeed + cmc.getAcceleration();
-		if (speed > cmc.getMaxSpeed()) {
-			speed = cmc.getMaxSpeed();
+		movementSpeed += cmc.getAcceleration();
+		if (movementSpeed > cmc.getMaxSpeed()) {
+			movementSpeed = cmc.getMaxSpeed();
 		}
-		return speed;
+		return movementSpeed;
 	}
 
 	private float moveBackwards(float movementSpeed, CanMoveComponent cmc) {
-		float speed = movementSpeed - cmc.getBrake();
-		if (speed < -cmc.getMaxSpeed()) {
-			speed = -cmc.getMaxSpeed();
+		movementSpeed -= cmc.getBrake();
+		if (movementSpeed < -cmc.getMaxSpeed()) {
+			movementSpeed = -cmc.getMaxSpeed();
 		}
-		return speed;
+		return movementSpeed;
 	}
 
 	private float decelerateMovement(float movementSpeed, CanMoveComponent cmc) {
-		float speed = movementSpeed - cmc.getDeceleration();
-		if (speed < 0) {
-			speed = 0;
+		movementSpeed -= cmc.getDeceleration();
+		if (movementSpeed < 0) {
+			movementSpeed = 0;
 		}
-		return speed;
+		return movementSpeed;
 	}
 
 	private float accelerateMovement(float movementSpeed, CanMoveComponent cmc) {
-		float speed = movementSpeed + cmc.getDeceleration();
-		if (speed > 0) {
-			speed = 0;
+		movementSpeed += cmc.getDeceleration();
+		if (movementSpeed > 0) {
+			movementSpeed = 0;
 		}
-		return speed;
+		return movementSpeed;
 	}
 
 	private Float setStrafeSpeed(SpeedComponent sc, MovementComponent mc, CanMoveComponent cmc) {
@@ -168,35 +182,35 @@ public class FlightAppState extends AbstractEntityControl {
 	}
 
 	private float strafeLeft(float strafeSpeed, CanMoveComponent cmc) {
-		float speed = strafeSpeed + cmc.getAcceleration();
-		if (speed > cmc.getMaxSpeed()) {
-			speed = cmc.getMaxSpeed();
+		strafeSpeed += cmc.getAcceleration();
+		if (strafeSpeed > cmc.getMaxSpeed()) {
+			strafeSpeed = cmc.getMaxSpeed();
 		}
-		return speed;
+		return strafeSpeed;
 	}
 
 	private float strafeRight(float strafeSpeed, CanMoveComponent cmc) {
-		float speed = strafeSpeed - cmc.getBrake();
-		if (speed < -cmc.getMaxSpeed()) {
-			speed = -cmc.getMaxSpeed();
+		strafeSpeed -= cmc.getBrake();
+		if (strafeSpeed < -cmc.getMaxSpeed()) {
+			strafeSpeed = -cmc.getMaxSpeed();
 		}
-		return speed;
+		return strafeSpeed;
 	}
 
 	private float decelerateStrafing(float strafeSpeed, float deceleration) {
-		float speed = strafeSpeed - deceleration;
-		if (speed < 0) {
-			speed = 0;
+		strafeSpeed -= deceleration;
+		if (strafeSpeed < 0) {
+			strafeSpeed = 0;
 		}
-		return speed;
+		return strafeSpeed;
 	}
 
 	private float accelerateStrafing(float strafeSpeed, float deceleration) {
-		float speed = strafeSpeed + deceleration;
-		if (speed > 0) {
-			speed = 0;
+		strafeSpeed += deceleration;
+		if (strafeSpeed > 0) {
+			strafeSpeed = 0;
 		}
-		return speed;
+		return strafeSpeed;
 	}
 
 	private Float setRotationSpeed(MovementComponent mc, float turnSpeed) {
@@ -211,13 +225,25 @@ public class FlightAppState extends AbstractEntityControl {
 
 	private boolean onScreen(Vector3f location) {
 		boolean onScreen = true;
-		Vector3f screenLocation = getApplication().getCamera().getScreenCoordinates(location);
-		if (screenLocation.x > getApplication().getContext().getSettings().getWidth() || screenLocation.x < 0) {
+		Vector3f screenLocation = application.getCamera().getScreenCoordinates(location);
+		if (screenLocation.x > application.getContext().getSettings().getWidth() || screenLocation.x < 0) {
 			onScreen = false;
 		}
-		if (screenLocation.y > getApplication().getContext().getSettings().getHeight() || screenLocation.y < 0) {
+		if (screenLocation.y > application.getContext().getSettings().getHeight() || screenLocation.y < 0) {
 			onScreen = false;
 		}
 		return onScreen;
+	}
+
+	private boolean isBounded(Entity movingEntity) {
+		return isBounded() && movingEntity.matches(new ComponentTypeCriteria(BoundedEntityComponent.class));
+	}
+
+	public boolean isBounded() {
+		return bounded;
+	}
+
+	public void setBounded(boolean bounded) {
+		this.bounded = bounded;
 	}
 }

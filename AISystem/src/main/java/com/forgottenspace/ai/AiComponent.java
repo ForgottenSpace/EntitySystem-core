@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.forgottenspace.es.Entity;
+import com.forgottenspace.es.EntityComponent;
 
-public abstract class AiComponent implements Cloneable {
+public abstract class AiComponent {
 
     private final String id;
     protected Map<String, Object> props;

@@ -30,7 +30,7 @@ class EntitySceneConverter implements SceneGraphVisitor {
     private void convertSpatialToEntity(Spatial spatial) {
         String templateFileName = spatial.getUserData(TEMPLATE_FILE_NAME);
         EntityTemplate template = (EntityTemplate) assetManager.loadAsset(templateFileName);
-        if (template.getComponents() != null && template.getComponents().isEmpty()) {
+        if (template.getComponents() != null && !template.getComponents().isEmpty()) {
             Entity entity = convertTemplateToEntity(template);
             entities.addComponentsToEntity(entity, new LocationComponent(spatial.getWorldTranslation(), spatial.getWorldRotation(), spatial.getLocalScale()));
             spatial.removeFromParent();
