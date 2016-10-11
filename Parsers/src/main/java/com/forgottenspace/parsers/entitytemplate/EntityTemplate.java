@@ -43,11 +43,13 @@ public class EntityTemplate implements Savable {
         return components.toArray(new EntityComponent[]{});
     }
 
+    @Override
     public void write(JmeExporter ex) throws IOException {
         OutputCapsule capsule = ex.getCapsule(this);
         capsule.write(name, "name", null);
     }
 
+    @Override
     public void read(JmeImporter im) throws IOException {
         InputCapsule capsule = im.getCapsule(this);
         name = capsule.readString("name", null);

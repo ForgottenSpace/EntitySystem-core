@@ -88,6 +88,7 @@ public class FlightControlAppState extends AbstractEntityControl implements Acti
 		}
 	}
 
+	@Override
 	public final void onAction(final String name, final boolean isPressed, final float tpf) {
 		if (isEnabled()) {
 			loadMovementComponent();

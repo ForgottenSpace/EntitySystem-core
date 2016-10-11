@@ -19,9 +19,9 @@ public class AiScript implements Savable {
 	private String name;
     private String entry;
     private Entity entity;
-    private final Map<String, AiComponent> components = new HashMap<String, AiComponent>();
+    private final Map<String, AiComponent> components = new HashMap<>();
     private AiComponent currentComponent;
-    private Map<String, Object> globalProps = new HashMap<String, Object>();
+    private Map<String, Object> globalProps = new HashMap<>();
     private boolean subScript;
     private boolean finished = false;
 
@@ -105,11 +105,13 @@ public class AiScript implements Savable {
         return name;
     }
 
+    @Override
     public void write(JmeExporter ex) throws IOException {
         OutputCapsule capsule = ex.getCapsule(this);
         capsule.write(name, "name", null);
     }
 
+    @Override
     public void read(JmeImporter im) throws IOException {
         InputCapsule capsule = im.getCapsule(this);
         name = capsule.readString("name", null);

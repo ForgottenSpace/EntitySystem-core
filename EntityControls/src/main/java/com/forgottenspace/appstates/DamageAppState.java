@@ -17,7 +17,7 @@ import com.jme3.app.state.AppStateManager;
 public class DamageAppState extends AbstractEntityControl {
 
     private EntityResultSet resultSet;
-    private List<Entity> damageEntities = new ArrayList<Entity>();
+    private List<Entity> damageEntities = new ArrayList<>();
     private AppStateManager appStateManager;
 
     @SuppressWarnings("unchecked")

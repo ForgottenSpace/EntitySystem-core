@@ -17,6 +17,7 @@ import com.jme3.math.Vector3f;
 
 public class FlightAppState extends AbstractEntityControl {
 
+	private static final float MOVEMENT_PRECISION = 0.0000000001F;
 	private SimpleApplication application;
 	private EntityResultSet resultSet;
 	private boolean bounded;
@@ -89,21 +90,25 @@ public class FlightAppState extends AbstractEntityControl {
 	}
 
 	private Vector3f moveEntity(float movementSpeed, Vector3f location, Quaternion rotation) {
-		if (movementSpeed != 0) {
-			location = location.add(rotation.mult(Vector3f.UNIT_Z).normalizeLocal().multLocal(movementSpeed));
+		if (testFloatForZero(movementSpeed)) {
+			return location.add(rotation.mult(Vector3f.UNIT_Z).normalizeLocal().multLocal(movementSpeed));
 		}
 		return location;
 	}
 
+	private boolean testFloatForZero(float movementSpeed) {
+		return Math.abs(movementSpeed) < MOVEMENT_PRECISION;
+	}
+
 	private Vector3f strafeEntity(float strafeSpeed, Vector3f location, Quaternion rotation) {
-		if (strafeSpeed != 0) {
-			location = location.add(rotation.mult(Vector3f.UNIT_X).normalizeLocal().multLocal(strafeSpeed));
+		if (testFloatForZero(strafeSpeed)) {
+			return location.add(rotation.mult(Vector3f.UNIT_X).normalizeLocal().multLocal(strafeSpeed));
 		}
 		return location;
 	}
 
 	private void rotateEntity(float rotateSpeed, Quaternion rotation) {
-		if (rotateSpeed != 0) {
+		if (testFloatForZero(rotateSpeed)) {
 			Quaternion rot = new Quaternion();
 			rot.fromAngles(0f, rotateSpeed, 0f);
 			rotation.multLocal(rot);
@@ -136,35 +141,35 @@ public class FlightAppState extends AbstractEntityControl {
 	}
 
 	private float moveForward(float movementSpeed, CanMoveComponent cmc) {
-		movementSpeed += cmc.getAcceleration();
-		if (movementSpeed > cmc.getMaxSpeed()) {
-			movementSpeed = cmc.getMaxSpeed();
+		float acceleratedSpeed = movementSpeed + cmc.getAcceleration();
+		if (acceleratedSpeed > cmc.getMaxSpeed()) {
+			acceleratedSpeed = cmc.getMaxSpeed();
 		}
-		return movementSpeed;
+		return acceleratedSpeed;
 	}
 
 	private float moveBackwards(float movementSpeed, CanMoveComponent cmc) {
-		movementSpeed -= cmc.getBrake();
-		if (movementSpeed < -cmc.getMaxSpeed()) {
-			movementSpeed = -cmc.getMaxSpeed();
+		float brakingSpeed = movementSpeed - cmc.getBrake();
+		if (brakingSpeed < -cmc.getMaxSpeed()) {
+			brakingSpeed = -cmc.getMaxSpeed();
 		}
-		return movementSpeed;
+		return brakingSpeed;
 	}
 
 	private float decelerateMovement(float movementSpeed, CanMoveComponent cmc) {
-		movementSpeed -= cmc.getDeceleration();
-		if (movementSpeed < 0) {
-			movementSpeed = 0;
+		float deceleratedSpeed = movementSpeed - cmc.getDeceleration();
+		if (deceleratedSpeed < 0) {
+			deceleratedSpeed = 0;
 		}
-		return movementSpeed;
+		return deceleratedSpeed;
 	}
 
 	private float accelerateMovement(float movementSpeed, CanMoveComponent cmc) {
-		movementSpeed += cmc.getDeceleration();
-		if (movementSpeed > 0) {
-			movementSpeed = 0;
+		float acceleratedSpeed = movementSpeed + cmc.getDeceleration();
+		if (acceleratedSpeed > 0) {
+			acceleratedSpeed = 0;
 		}
-		return movementSpeed;
+		return acceleratedSpeed;
 	}
 
 	private Float setStrafeSpeed(SpeedComponent sc, MovementComponent mc, CanMoveComponent cmc) {
@@ -182,35 +187,35 @@ public class FlightAppState extends AbstractEntityControl {
 	}
 
 	private float strafeLeft(float strafeSpeed, CanMoveComponent cmc) {
-		strafeSpeed += cmc.getAcceleration();
-		if (strafeSpeed > cmc.getMaxSpeed()) {
-			strafeSpeed = cmc.getMaxSpeed();
+		float strafeLeftSpeed = strafeSpeed + cmc.getAcceleration();
+		if (strafeLeftSpeed > cmc.getMaxSpeed()) {
+			strafeLeftSpeed = cmc.getMaxSpeed();
 		}
-		return strafeSpeed;
+		return strafeLeftSpeed;
 	}
 
 	private float strafeRight(float strafeSpeed, CanMoveComponent cmc) {
-		strafeSpeed -= cmc.getBrake();
-		if (strafeSpeed < -cmc.getMaxSpeed()) {
-			strafeSpeed = -cmc.getMaxSpeed();
+		float strafeRightSpeed = strafeSpeed - cmc.getBrake();
+		if (strafeRightSpeed < -cmc.getMaxSpeed()) {
+			strafeRightSpeed = -cmc.getMaxSpeed();
 		}
-		return strafeSpeed;
+		return strafeRightSpeed;
 	}
 
 	private float decelerateStrafing(float strafeSpeed, float deceleration) {
-		strafeSpeed -= deceleration;
-		if (strafeSpeed < 0) {
-			strafeSpeed = 0;
+		float strafeDecelerationSpeed = strafeSpeed - deceleration;
+		if (strafeDecelerationSpeed < 0) {
+			strafeDecelerationSpeed = 0;
 		}
-		return strafeSpeed;
+		return strafeDecelerationSpeed;
 	}
 
 	private float accelerateStrafing(float strafeSpeed, float deceleration) {
-		strafeSpeed += deceleration;
-		if (strafeSpeed > 0) {
-			strafeSpeed = 0;
+		float strafeAccelerationSpeed = strafeSpeed + deceleration;
+		if (strafeAccelerationSpeed > 0) {
+			strafeAccelerationSpeed = 0;
 		}
-		return strafeSpeed;
+		return strafeAccelerationSpeed;
 	}
 
 	private Float setRotationSpeed(MovementComponent mc, float turnSpeed) {

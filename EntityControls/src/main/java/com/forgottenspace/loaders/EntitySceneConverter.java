@@ -21,6 +21,7 @@ class EntitySceneConverter implements SceneGraphVisitor {
 		this.assetManager = assetManager;
 	}
 
+    @Override
 	public void visit(Spatial spatial) {
         if (spatial.getUserDataKeys().contains(TEMPLATE_FILE_NAME)) {
             convertSpatialToEntity(spatial);

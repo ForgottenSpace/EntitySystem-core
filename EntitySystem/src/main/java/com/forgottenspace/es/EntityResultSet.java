@@ -15,10 +15,10 @@ public class EntityResultSet extends AbstractSet<Entity> {
 
     public EntityResultSet(ComponentTypeCriteria criteria) {
         this.criteria = criteria;
-        entities = new ArrayList<Entity>();
-        addedEntities = new ArrayList<Entity>();
-        removedEntities = new ArrayList<Entity>();
-        changedEntities = new ArrayList<Entity>();
+        entities = new ArrayList<>();
+        addedEntities = new ArrayList<>();
+        removedEntities = new ArrayList<>();
+        changedEntities = new ArrayList<>();
     }
 
     @Override
@@ -102,9 +102,7 @@ public class EntityResultSet extends AbstractSet<Entity> {
 			if (other.criteria != null) {
 				return false;
 			}
-		} else if (criteria.size() != other.criteria.size()) {
-			return false;
-		} else if (!criteria.containsAll(other.criteria)) {
+		} else if (criteria.size() != other.criteria.size() || !criteria.containsAll(other.criteria)) {
 			return false;
 		}
 		return true;
@@ -117,9 +115,9 @@ public class EntityResultSet extends AbstractSet<Entity> {
     public class UpdateProcessor {
 
         private EntityResultSet entityResultSet;
-        private List<Entity> addedEntities = new ArrayList<Entity>();
-        private List<Entity> changedEntities = new ArrayList<Entity>();
-        private List<Entity> removedEntities = new ArrayList<Entity>();
+        private List<Entity> addedEntities = new ArrayList<>();
+        private List<Entity> changedEntities = new ArrayList<>();
+        private List<Entity> removedEntities = new ArrayList<>();
 
         private UpdateProcessor(EntityResultSet ers) {
             this.entityResultSet = ers;
@@ -147,9 +145,9 @@ public class EntityResultSet extends AbstractSet<Entity> {
             entityResultSet.changedEntities.removeAll(this.changedEntities);
             entityResultSet.removedEntities.removeAll(this.removedEntities);
 
-            this.addedEntities = new ArrayList<Entity>();
-            this.changedEntities = new ArrayList<Entity>();
-            this.removedEntities = new ArrayList<Entity>();
+            this.addedEntities = new ArrayList<>();
+            this.changedEntities = new ArrayList<>();
+            this.removedEntities = new ArrayList<>();
         }
     }
 }

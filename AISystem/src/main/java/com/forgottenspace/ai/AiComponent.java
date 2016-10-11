@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.forgottenspace.es.Entity;
-import com.forgottenspace.es.EntityComponent;
 
 public abstract class AiComponent {
 

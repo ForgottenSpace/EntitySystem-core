@@ -14,7 +14,7 @@ import com.forgottenspace.es.components.LocationComponent;
 public class AiAppState extends AbstractEntityControl {
 
     private EntityResultSet aiResultSet;
-    private Map<Entity, AiScript> aiEntities = new HashMap<Entity, AiScript>();
+    private Map<Entity, AiScript> aiEntities = new HashMap<>();
 
     @SuppressWarnings("unchecked")
 	public AiAppState() {

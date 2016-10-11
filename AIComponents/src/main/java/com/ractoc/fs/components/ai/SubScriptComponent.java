@@ -15,7 +15,7 @@ import com.jme3.asset.AssetManager;
 
 public class SubScriptComponent extends AiComponent {
 
-    private List<AiScript> scripts = new ArrayList<AiScript>();
+    private List<AiScript> scripts = new ArrayList<>();
     @AiComponentProperty(name = SCRIPTS_PROPERTY, displayName = "Sub Scripts", type = String.class, shortDescription = "Comma seperated list of Fully Qualified names for the sub script files.")
     private String scriptNames;
     @AiComponentExit(name = SUB_SCRIPTS_EXIT, displayName = "Exit", type = String.class, shortDescription = "Called when all the seperate sub scripts have finished.")

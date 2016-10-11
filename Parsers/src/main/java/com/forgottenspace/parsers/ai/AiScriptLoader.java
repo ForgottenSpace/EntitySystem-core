@@ -15,6 +15,7 @@ public class AiScriptLoader implements AssetLoader {
         AiScriptLoader.classLoader = loader;
     }
 
+    @Override
     public Object load(AssetInfo assetInfo) throws IOException {
         AiScriptParser parser = new AiScriptParser();
         if (classLoader != null) {

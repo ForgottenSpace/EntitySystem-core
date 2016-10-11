@@ -10,7 +10,6 @@ import java.lang.reflect.Field;
 public class AiScriptWriter {
 
     private AiScript script;
-    private BufferedWriter writer;
 
     public void write(AiScript script, String scriptFile) {
         File f = new File(scriptFile);
@@ -19,30 +18,27 @@ public class AiScriptWriter {
 
     public void write(AiScript script, File scriptFile) {
         this.script = script;
-        try {
-            if (!scriptFile.exists()) {
-                scriptFile.createNewFile();
-            }
-            Writer fileWriter = new FileWriter(scriptFile);
-            writer = new BufferedWriter(fileWriter);
-            writeScript();
-        } catch (IOException ex) {
+        ensureScriptFileExists(scriptFile);
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(scriptFile))) {
+            writeScript(writer);
+        } catch (IOException | IllegalArgumentException | IllegalAccessException ex) {
             throw new ParserException("Unable to write " + scriptFile, ex);
-        } catch (IllegalArgumentException ex) {
-            throw new ParserException("Unable to write " + scriptFile, ex);
-        } catch (IllegalAccessException ex) {
-            throw new ParserException("Unable to write " + scriptFile, ex);
-        } finally {
-            try {
-                writer.flush();
-                writer.close();
-            } catch (IOException ex) {
-                throw new ParserException("Unable to properly close the script file.", ex);
-            }
         }
     }
 
-    private void writeScript() throws IOException, IllegalArgumentException, IllegalAccessException {
+	private void ensureScriptFileExists(File scriptFile) {
+		if (!scriptFile.exists()) {
+            try {
+				if (!scriptFile.createNewFile()) {
+					throw new ParserException("Unable to create the script file.");
+				}
+			} catch (IOException ex) {
+				throw new ParserException("Unable to create the script file.", ex);
+			}
+        }
+	}
+
+    private void writeScript(BufferedWriter writer) throws IOException, IllegalAccessException {
         writer.write("script {");
         writer.newLine();
         writer.write("\tname=");
@@ -51,23 +47,23 @@ public class AiScriptWriter {
         writer.write("\tentry=");
         writer.append(script.getEntry());
         writer.newLine();
-        if (script.getComponents().size() > 0) {
+        if (!script.getComponents().isEmpty()) {
             writer.write("\tcomponents {");
             writer.newLine();
-            writeComponents();
+            writeComponents(writer);
             writer.write("\t}");
             writer.newLine();
         }
         writer.write("}");
     }
 
-    private void writeComponents() throws IOException, IllegalArgumentException, IllegalAccessException {
+    private void writeComponents(BufferedWriter writer) throws IOException, IllegalAccessException {
         for (AiComponent component : script.getComponents()) {
-            writeComponent(component);
+            writeComponent(writer, component);
         }
     }
 
-    private void writeComponent(AiComponent component) throws IllegalAccessException, IOException, IllegalArgumentException {
+    private void writeComponent(BufferedWriter writer, AiComponent component) throws IllegalAccessException, IOException {
         if (component != null) {
             writer.write("\t\tcomponent {");
             writer.newLine();
@@ -77,15 +73,15 @@ public class AiScriptWriter {
             writer.write("\t\t\tid=");
             writer.write(component.getId());
             writer.newLine();
-            writeProperties(component);
+            writeProperties(writer, component);
             writer.newLine();
-            writeExits(component);
+            writeExits(writer, component);
             writer.write("\t\t}");
             writer.newLine();
         }
     }
 
-    private void writeProperties(AiComponent component) throws IOException, IllegalArgumentException, IllegalAccessException {
+    private void writeProperties(BufferedWriter writer, AiComponent component) throws IOException, IllegalAccessException {
         Field[] fields = component.getClass().getDeclaredFields();
         if (fields != null && fields.length > 0) {
             writer.write("\t\t\tproperties {");
@@ -105,7 +101,7 @@ public class AiScriptWriter {
         }
     }
 
-    private void writeExits(AiComponent component) throws IOException, IllegalArgumentException, IllegalAccessException {
+    private void writeExits(BufferedWriter writer, AiComponent component) throws IOException, IllegalAccessException {
         Field[] fields = component.getClass().getDeclaredFields();
         if (fields != null && fields.length > 0) {
             writer.write("\t\t\texits {");

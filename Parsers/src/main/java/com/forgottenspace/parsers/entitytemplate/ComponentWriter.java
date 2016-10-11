@@ -11,8 +11,8 @@ import java.util.Map;
 
 public abstract class ComponentWriter {
 
-    protected Map<String, String> properties = new HashMap<String, String>();
-    protected final List<String> mandatoryProperties = new ArrayList<String>();
+    protected Map<String, String> properties = new HashMap<>();
+    protected final List<String> mandatoryProperties = new ArrayList<>();
 
     public Map<String, String> getPropertiesFromComponent(EntityComponent component) {
         try {

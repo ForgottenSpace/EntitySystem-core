@@ -13,6 +13,7 @@ public class TemplateLoader implements AssetLoader {
         TemplateLoader.classLoader = loader;
     }
 
+    @Override
     public Object load(AssetInfo assetInfo) throws IOException {
         TemplateParser parser = new TemplateParser();
         if (classLoader != null) {
